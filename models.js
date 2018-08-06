@@ -45,3 +45,14 @@ const Vegetable = db.define('vegetable', {
 Vegetable.belongsToMany(Plot, {through: 'vegetable_plot'})
 Plot.belongsToMany(Vegetable, {through: 'vegetable_plot'})
 Gardener.belongsTo(Vegetable, {as: 'favorite_vegetable'})
+
+Vegetable.bulkCreate([
+    {name: 'tomato'},
+    {name: 'zucchini'},
+    {name: 'celery'},
+    {name: 'carrots'}
+]).then(() => {
+   console.log('vegetable created', Vegetable.findAll());
+})
+
+
