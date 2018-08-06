@@ -42,5 +42,6 @@ const Vegetable = db.define('vegetable', {
 
 })
 
-Vegetable.belongsToMany(Plot, {through: 'friendship'})
-Plot.belongsToMany(Vegetable, {through: 'friendship'})
+Vegetable.belongsToMany(Plot, {through: 'vegetable_plot'})
+Plot.belongsToMany(Vegetable, {through: 'vegetable_plot'})
+Gardener.belongsTo(Vegetable, {as: 'favorite_vegetable'})
