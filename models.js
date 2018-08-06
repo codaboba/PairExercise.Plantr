@@ -25,21 +25,9 @@ const Plot = db.define('plot', {
 
 })
 const Vegetable = db.define('vegetable', {
-    name:{
-        type: Sequelize.INTEGER,
-        allowNull: false
-    },
-    color:{
-        type: Sequelize.STRING,
-        allowNull: false
-
-    },
-    planted_on:{
-        type: Sequelize.DATE,
-        allowNull: false
-
-    }
-
+    name: Sequelize.INTEGER,
+    color: Sequelize.STRING,
+    planted_on: Sequelize.DATE
 })
 
 Vegetable.belongsToMany(Plot, {through: 'vegetable_plot'})
@@ -47,12 +35,14 @@ Plot.belongsToMany(Vegetable, {through: 'vegetable_plot'})
 Gardener.belongsTo(Vegetable, {as: 'favorite_vegetable'})
 
 Vegetable.bulkCreate([
-    {name: 'tomato'},
-    {name: 'zucchini'},
-    {name: 'celery'},
-    {name: 'carrots'}
+    {name: 'tomato', color: 'red', planted_on: new Date()},
+    {name: 'zucchini', color: 'green', planted_on: new Date()},
+    {name: 'eggplant', color: 'purple', planted_on: new Date()},
+    {name: 'carrots', color: 'orange', planted_on: new Date()}
 ]).then(() => {
-   console.log('vegetable created', Vegetable.findAll());
+  return Vegetable.findAll()
+}).then((vegetable) => {
+  console.log(vegetable)
 })
 
 
